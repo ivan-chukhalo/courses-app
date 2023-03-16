@@ -1,7 +1,7 @@
 import React from "react";
+import { nanoid } from "nanoid";
 
 export default function Course(props) {
-  console.log(props.data.meta.skills);
   return (
     <div className="course">
       <h2 className="course__header">{props.data.title}</h2>
@@ -16,7 +16,7 @@ export default function Course(props) {
         <ul className="course__skills-list">
           {props.data.meta.hasOwnProperty("skills") &&
             props.data.meta.skills.map((skill) => (
-              <li className="course__skill">{skill}</li>
+              <li className="course__skill" key={nanoid()}>{skill}</li>
             ))}
         </ul>
       </div>

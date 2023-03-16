@@ -1,7 +1,9 @@
 import React from "react";
 import Course from "./components/Course";
+import Pagination from "./components/Pagination";
 
 function App() {
+  // START FETCHING DATA
   const [coursesData, setCoursesData] = React.useState([]);
   const REQUEST_OPTIONS = {
     method: "GET",
@@ -35,14 +37,36 @@ function App() {
     getData();
   }, []);
 
+  // EDN FETCHING DATA
+
+  // START PAGINATION
+  const [currentPage, setCurrentPage] = React.useState(1);
+  const [coursesPerPage, setCoursesPerPage] = React.useState(10);
+  const lastCourseIndex = currentPage * coursesPerPage;
+  const firstCourseIndex = lastCourseIndex - coursesPerPage;
+  const currentCourses = coursesData.slice(firstCourseIndex, lastCourseIndex);
+  // END PAGINATION
+
   return (
     <div className="App">
       <h1 className="header">List of courses</h1>
+      <Pagination
+        totalCourses={coursesData.length}
+        coursesPerPage={coursesPerPage}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
       <div className="courses-wrapper">
-        {coursesData.map((course) => (
-          <Course data={course} />
+        {currentCourses.map((course) => (
+          <Course data={course} key={course.id}/>
         ))}
       </div>
+      <Pagination
+        totalCourses={coursesData.length}
+        coursesPerPage={coursesPerPage}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
     </div>
   );
 }

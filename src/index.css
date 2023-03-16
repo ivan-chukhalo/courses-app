@@ -73,3 +73,24 @@ ul{
 .course__skill:not(:last-of-type){
   margin-right: 10px;
 }
+
+.pagination{
+  display: flex;
+  height: 50px;
+  justify-content: center;
+  column-gap: 20px;
+  padding: 20px 0;
+}
+
+.pagination__btn{
+  border: 1px solid black;
+  flex-basis: 50px;
+}
+
+.pagination__btn:hover{
+  background-color: aqua;
+}
+
+.pagination__btn-active{
+  background-color: blue;
+}
