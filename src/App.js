@@ -1,7 +1,9 @@
 import React from "react";
 import HomePage from "./components/HomePage";
+import CoursePage from "./components/CoursePage";
 
 function App() {
+  const [currentCourse, setCurrentCourse] = React.useState(null);
   // START FETCHING COURSES PREVIEW DATA
   const [coursesPreviewData, setCoursesPreviewData] = React.useState([]); // інформація про прев'ю курсів
   const REQUEST_OPTIONS = {
@@ -54,10 +56,9 @@ function App() {
   );
   // END PAGINATION
 
-  const [currentCourse, setCurrentCourse] = React.useState();
   // START FETCHING SPECIFIC COURSE DATA
   async function fetchCourse(id) {
-    // setCurrentCourse(null);  // СТАН ДЛЯ ВІДОБРАЖЕННЯ ГОЛОВНОЇ СТОРІНКИ АБО СТОРІНКИ КУРСУ
+    setCurrentCourse(null); 
     await fetch(
       "/api/v1/auth/anonymous?platform=subscriptions",
       REQUEST_OPTIONS
@@ -79,7 +80,7 @@ function App() {
         fetch("/api/v1/core/preview-courses" + "/" + id, requestOptionsCourses)
           .then((response) => response.json())
           .then((result) => {
-            console.log(result);
+            setCurrentCourse(result);
           })
           .catch((error) => console.log("error", error));
       })
@@ -89,14 +90,18 @@ function App() {
 
   return (
     <div className="App">
-      <HomePage
-        currentCourses={currentCourses}
-        coursesPreviewData={coursesPreviewData}
-        coursesPerPage={coursesPerPage}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        fetchCourse={fetchCourse}
-      />
+      {currentCourse ? (
+        <CoursePage course={currentCourse} />
+      ) : (
+        <HomePage
+          currentCourses={currentCourses}
+          coursesPreviewData={coursesPreviewData}
+          coursesPerPage={coursesPerPage}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          fetchCourse={fetchCourse}
+        />
+      )}
     </div>
   );
 }
