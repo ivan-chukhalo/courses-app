@@ -1,6 +1,5 @@
 import React from "react";
 import { nanoid } from "nanoid";
-import ReactPlayer from "react-player";
 
 export default function Course(props) {
 
