@@ -5,6 +5,7 @@ export default function Pagination({ totalCourses, coursesPerPage, currentPage, 
   for (let i = 1; i <= Math.ceil(totalCourses / coursesPerPage); i++) {
     pages.push(i);
   }
+  
   return (
     <div className="pagination">
       {pages.map((page, index) => {

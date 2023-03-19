@@ -1,9 +1,12 @@
 import React from "react";
 import { nanoid } from "nanoid";
+import ReactPlayer from "react-player";
 
 export default function Course(props) {
+
   return (
-    <div className="course">
+    <div className="course" onClick={props.onClick}>
+      {/* <ReactPlayer url={props.data.lessons.link} /> */}
       <h2 className="course__header">{props.data.title}</h2>
       <img
         src={props.data.previewImageLink + "/cover.webp"}
